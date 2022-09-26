@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using To_do_It.Data;
 
 namespace To_do_It.Models
 {
@@ -13,24 +14,29 @@ namespace To_do_It.Models
         private string firstName;
         private string lastName;
 
-        public Person(int id, string firstName, string lastName)
+        public Person(string firstName, string lastName)
         {
-            Id = id;
-            if (string.IsNullOrEmpty(firstName)) {
-                throw new ArgumentNullException();
-            } else {
-                this.firstName = firstName;
-                    }
-
-            if (string.IsNullOrEmpty(lastName))
+            Id = PersonSequencer.NextPersonId();
+            if (string.IsNullOrEmpty(firstName))
             {
                 throw new ArgumentNullException();
             }
             else
             {
-                this.lastName = lastName;
-            }
+                this.firstName = firstName;
+                {
+                }
 
+                if (string.IsNullOrEmpty(lastName))
+                {
+                    throw new ArgumentNullException();
+                }
+                else
+                {
+                    this.lastName = lastName;
+                }
+
+            }
         }
 
         public string FirstName
@@ -45,5 +51,17 @@ namespace To_do_It.Models
             set { lastName = value; }
         }
 
+        public int id 
+        {
+            get
+            {
+                return Id;
+            }
+        }
+
+        //public override string? ToString()
+        //{
+        //    return base.ToString();
+        //}
     }
 }
