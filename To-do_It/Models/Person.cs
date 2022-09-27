@@ -10,26 +10,26 @@ namespace To_do_It.Models
     internal class Person
     {
 
-        private readonly int Id;
+        private readonly int personId;
         private string firstName;
         private string lastName;
 
-        public Person(string firstName, string lastName)
+        public Person(string firstName, string lastName, int personId)
         {
-            Id = PersonSequencer.NextPersonId();
-            if (string.IsNullOrEmpty(firstName))
+            this.personId = personId;
+            if (string.IsNullOrWhiteSpace(firstName))
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException("First name can't be null or empty");
             }
             else
             {
                 this.firstName = firstName;
-                {
+                
                 }
 
                 if (string.IsNullOrEmpty(lastName))
                 {
-                    throw new ArgumentNullException();
+                    throw new ArgumentNullException("Last name can't be null or empty"); ;
                 }
                 else
                 {
@@ -37,25 +37,47 @@ namespace To_do_It.Models
                 }
 
             }
-        }
+        
 
         public string FirstName
         {
             get { return firstName; }
-            set { firstName = value; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentNullException("First name can't be null or empty");
+                }
+                else
+                {
+                    firstName = value;
+
+                }
+
+            }
         }
 
         public string LastName
         {
             get { return lastName; }
-            set { lastName = value; }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException("Last name can't be null or empty"); ;
+                }
+                else
+                {
+                    lastName = value;
+                }
+            }
         }
 
         public int id 
         {
             get
             {
-                return Id;
+                return personId;
             }
         }
 

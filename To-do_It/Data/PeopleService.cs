@@ -10,39 +10,54 @@ namespace To_do_It.Data
 {
     internal class PeopleService
     {
-        
-            private static Person[] persons;
 
-        public PeopleService()
+        private static Person[] personArray = new Person[0];
+
+        public Person[] PersonArray
         {
-            Person[] persons = new Person[0] { };
+           get { return personArray; }
+    set { personArray = value; }
            
         }
 
         public int Size()
         {
-            return persons.Length;
+            return personArray.Length;
         }
 
         public Person[] FindAll()
         {
-            return persons;
+            //foreach (Person person in personArray)
+            //{
+            //    Console.WriteLine(person.FirstName + " " + person.LastName + " " + person.id);
+            //}
+            return personArray;
         }
 
-        //public Person FindById(int personId)
-        //{
-        //    int foundid = Person
-
-        //    return Person[personId];
-        //}
+        public Person FindById(int personId)
+        {
+            foreach (Person person in personArray)
+            {
+                if (personId == person.id)
+                {
+                    return person;
+                }
+            }
+            return null;
+        }
 
         public Person newPerson(String firstName, String lastName)
         {
-            Person newPersonToAdd = new Person(firstName, lastName);
-            persons.AddtoList(newPersonToAdd);
-                return newPersonToAdd;
+            Person newPersonToAdd = new Person(firstName, lastName, PersonSequencer.NextPersonId());
+            Array.Resize(ref personArray, personArray.Length + 1);
+            personArray[personArray.Length - 1] = newPersonToAdd;
+            return newPersonToAdd;
         }
 
+        public void Clear()
+        {
+            personArray = new Person[0];
+        }
 
     }
     }

@@ -14,10 +14,12 @@ namespace To_do_It.Models
         private bool done;
         private Person assignee;
 
-        public Todo(int id, string description)
+        public Todo(int id, string description, Person person)
         {
-            this.id = TodoSequencer.NextTodoId();
+            this.id = id;
             this.description = description;
+            this.assignee = person;
+            this.done = false;
         }
 
         public int Id
