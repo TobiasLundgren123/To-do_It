@@ -39,9 +39,9 @@ namespace To_do_It.Data
             return null;
         }
 
-        public Todo newTodo(String description, Person assignee)
+        public Todo newTodo(String description)
         {
-            Todo newTodoToAdd = new Todo(TodoSequencer.NextTodoId(), description, assignee);
+            Todo newTodoToAdd = new Todo(TodoSequencer.NextTodoId(), description);
             Array.Resize(ref todoArray, todoArray.Length + 1);
             todoArray[todoArray.Length - 1] = newTodoToAdd;
             return newTodoToAdd;
@@ -54,16 +54,76 @@ namespace To_do_It.Data
 
         public Todo[] FindByDoneStatus(bool doneStatus)
         {
-            todoArrayStatus = new Todo[0];
+            Todo[] todoArrayStatus = new Todo[0];
             foreach (Todo todo in todoArray)
             { 
                 if(todo.Done==doneStatus)
                 {
-                    Array.Resize(ref todoArrayStatus, todoArrayStatus + 1);
-
+                    Array.Resize(ref todoArrayStatus, todoArrayStatus.Length + 1);
+                    todoArrayStatus[todoArrayStatus.Length - 1] = todo;
                 }
                     }
+            return todoArrayStatus;
         }
 
+        public Todo[] FindByAssignee(int personId)
+        {
+            Todo[] todoArrayAssignee = new Todo[0];
+            foreach (Todo todo in todoArray)
+            {
+                if (todo.Id == personId)
+                {
+                    Array.Resize(ref todoArrayAssignee, todoArrayAssignee.Length + 1);
+                    todoArrayAssignee[todoArrayAssignee.Length - 1] = todo;
+                }
+            }
+            return todoArrayAssignee;
+        }
+
+        public Todo[] FindByAssignee(Person person)
+        {
+            Todo[] todoArrayAssigneePerson = new Todo[0];
+            foreach (Todo todo in todoArray)
+            {
+                if (todo.Assignee.Equals(person))
+                {
+                    Array.Resize(ref todoArrayAssigneePerson, todoArrayAssigneePerson.Length + 1);
+                    todoArrayAssigneePerson[todoArrayAssigneePerson.Length - 1] = todo;
+                }
+            }
+            return todoArrayAssigneePerson;
+        }
+
+        public Todo[] FindByUnassigned()
+        {
+            Todo[] todoArrayUnassigned = new Todo[0];
+            foreach (Todo todo in todoArray)
+            {
+                if (todo.Assignee == null)
+                {
+                    Array.Resize(ref todoArrayUnassigned, todoArrayUnassigned.Length + 1);
+                    todoArrayUnassigned[todoArrayUnassigned.Length - 1] = todo;
+                }
+            }
+            return todoArrayUnassigned;
+        }
+
+        public void Remove(Todo todoRemove)
+        {
+            Todo[] newTodoArray = new Todo[0];
+            foreach (Todo todo in todoArray)
+            {
+                if (todo.Equals(todoRemove))
+                {
+                    
+                } else
+                {
+                    Array.Resize(ref newTodoArray, newTodoArray.Length + 1);
+                    newTodoArray[newTodoArray.Length - 1] = todo;
+                }
+            }
+            Clear();
+            todoArray = newTodoArray;
+        }
     }
 }

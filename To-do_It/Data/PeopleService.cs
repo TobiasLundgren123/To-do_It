@@ -59,6 +59,25 @@ namespace To_do_It.Data
             personArray = new Person[0];
         }
 
+        public void Remove(Person personRemove)
+        {
+            Person[] newPersonArray = new Person[0];
+            foreach (Person person in personArray)
+            {
+                if (person.Equals(personRemove))
+                {
+
+                }
+                else
+                {
+                    Array.Resize(ref newPersonArray, newPersonArray.Length + 1);
+                    newPersonArray[newPersonArray.Length - 1] = person;
+                }
+            }
+            Clear();
+            personArray = newPersonArray;
+        }
+
     }
     }
 
